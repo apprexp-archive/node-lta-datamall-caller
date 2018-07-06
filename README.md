@@ -89,15 +89,6 @@ Default: `undefined`
 
 Required: `false`
 
-### `LtaDatamallCall.response`
-The unmutated, readonly response from LTA Datamall API dataset.
-
-Type: `object`
-
-Default: `{}`
-
-Readonly: `true`
-
 ### `LtaDatamallCall.getResponse()`
 Sends a request to LTA's Datamall API dataset and returns the response through a Promise.
 
