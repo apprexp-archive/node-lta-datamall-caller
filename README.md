@@ -7,14 +7,16 @@ An object-oriented promise-based LTA Datamall API Node.js wrapper written in Typ
 LTA Datamall Caller is a simple Node.JS wrapper to contact the LTA Datamall API.
 
 ## Installation
+**Note** Does not work yet! This is here for reference.
+
 To install the using [NPM](https://www.npmjs.com/):
 ```
-npm install lta-datamall
+npm install lta-datamall-caller
 ```
 
 Or if you're using [Yarn](https://yarnpkg.com/en/):
 ```
-yarn install lta-datamall
+yarn install lta-datamall-caller
 ```
 
 ## Usage
