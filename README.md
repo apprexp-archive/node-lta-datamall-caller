@@ -1,11 +1,6 @@
 # LTA Datamall Caller
 **Warning:** This API is highly experimental and currently does not comply with [semver](https://semver.org/). Use at your own risk.
 
-![node](https://img.shields.io/node/v/lta-datamall-caller/latest.svg?style=flat-square)
-![npm](https://img.shields.io/npm/v/lta-datamall-caller.svg?style=flat-square)
-![GitHub tag](https://img.shields.io/github/tag/lta-datamall/node-module.svg?style=flat-square)
-![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat-square)
-
 An object-oriented promise-based LTA Datamall API Node.js wrapper written in Typescript.
 
 ## What is LTA Datamall Caller
