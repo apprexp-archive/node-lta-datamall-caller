@@ -1,20 +1,13 @@
-declare type apiAccountKey = string;
-declare type apiDataset = string;
-declare type apiUrl = string;
+declare type ApiAccountKey = string;
+declare type ApiUrl = string;
 
 declare interface APIArgs {
-    apiAccountKey: apiAccountKey,
-    apiDataset: apiDataset
+    apiAccountKey: ApiAccountKey,
+    apiDataset: ApiDataset
 }
 
 declare interface APIDatasets {
-    [propName: string]: string;
-}
-
-declare interface APIConstructorArgs {
-    readonly apiAccountKey: string,
-    readonly apiDataset:
-        'BusArrivalv2'
+    [propName: string]: 'BusArrivalv2'
         | 'BusRoutes'
         | 'BusStops'
         | 'Taxi-Availability'
@@ -28,12 +21,40 @@ declare interface APIConstructorArgs {
         | 'Traffic-Images'
         | 'TrafficIncidents'
         | 'TrafficSpeedBands'
-        | 'VMS',
-    readonly apiResponseFormat?: 
-        'json'
-        | 'xml'
-        | 'atom+xml' 
-        | 'application/json' 
-        | 'application/atom+xml',
+        | 'VMS';
+}
+
+declare type ApiDataset =
+    'BusArrivalv2'
+    | 'BusRoutes'
+    | 'BusStops'
+    | 'Taxi-Availability'
+    | 'TrainServiceAlerts'
+    | 'CarParkAvailabilityv2'
+    | 'ERPRates'
+    | 'EstTravelTimes'
+    | 'FaultyTrafficLights'
+    | 'RoadOpenings'
+    | 'RoadWorks'
+    | 'Traffic-Images'
+    | 'TrafficIncidents'
+    | 'TrafficSpeedBands'
+    | 'VMS';
+
+declare type ApiResponseFormat = 
+    'json'
+    | 'xml'
+    | 'atom+xml' 
+    | 'application/json' 
+    | 'application/atom+xml';
+
+declare type ApiParams = {
+    [propName: string]: string
+};
+
+declare interface ApiConstructorArgs {
+    readonly apiAccountKey: string,
+    readonly apiDataset: ApiDataset,
+    readonly apiResponseFormat?: ApiResponseFormat,
     readonly apiParams: object,
 }

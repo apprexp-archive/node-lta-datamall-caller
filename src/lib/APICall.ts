@@ -7,64 +7,62 @@ import { URL } from 'url';
 class APICall {
     /** LTA Datamall2 API base URL. */
     private readonly _apiBaseURL = new URL('http://datamall2.mytransport.sg/ltaodataservice/').href;
-
-    /** LTA Datamall2 API dataset URL */
     private readonly _apiDatasetURL: string;
+    private readonly _apiAccountKey: string;
+    private readonly _apiResponseFormat: ApiResponseFormat;
 
-    /** LTA Datamall2 API response. */
-    private _response: rp.RequestPromise;
+    async getResponse(): Promise<object> {
+        let rpOptions = {
+            url: this._apiDatasetURL,
+            headers: {
+                AccountKey: this._apiAccountKey,
+                accept: this._apiResponseFormat
+            },
+            qs: this._apiParams,
+            json: (this._apiResponseFormat ? true : false)
+        }
 
-    get response(): rp.RequestPromise {
-        return this._response;
+        try {
+            let response = await rp(rpOptions)
+            return response;
+        }
+        catch(err) {
+            throw new Error(err);
+            return {};
+        }
     }
 
     /**
      * @param apiAccountKey LTA Datamall2 API account key.
      * @param apiDataset    LTA Datamall2 API dataset name.
     */
-    constructor({apiAccountKey, apiDataset, apiResponseFormat = 'json', apiParams}: APIConstructorArgs) {
+    constructor({apiAccountKey, apiDataset, apiResponseFormatPartials = 'json', apiParams}: ApiConstructorArgs) {
         this._apiDatasetURL = new URL(apiDataset, this._apiBaseURL).href;
+        this._apiAccountKey = apiAccountKey;
+        this._response = {};
 
         /* Initialize fullApiResponseFormat */
-        let fullApiResponseFormat: string;
+        let apiResponseFormat: ApiResponseFormat|string;
 
         /* Check if apiResponseFormat is normal shorthand */
-        if (['json','atom+xml', 'xml'].indexOf(apiResponseFormat) > -1) {
+        if (['json','atom+xml', 'xml'].indexOf(apiResponseFormatPartials) > -1) {
             /* Initialize the basic form of fullApiResponseFormat */
-             fullApiResponseFormat = 'application/';
+             apiResponseFormat = 'application/';
 
             /* Check if apiResponseFormat is missing 'atom+' prefix */
-            if (apiResponseFormat == 'xml') {
-                fullApiResponseFormat += 'atom+'
+            if (apiResponseFormatPartials == 'xml') {
+                apiResponseFormat += 'atom+'
             }
 
             /* Add the shorthand apiResponseFormat to fullApiResponseFormat */
-            fullApiResponseFormat += apiResponseFormat;
+            apiResponseFormat += apiResponseFormatPartials;
         }
         /* Otherwise, if apiResponseFormat is complete, simply pass it to fullAPIResponseFormat */
         else {
-            fullApiResponseFormat = apiResponseFormat;
+            apiResponseFormat = apiResponseFormatPartials;
         }
 
-        let rpOptions = {
-            url: this._apiDatasetURL,
-            headers: {
-                AccountKey: apiAccountKey,
-                accept: fullApiResponseFormat
-            },
-            qs: apiParams,
-            json: (fullApiResponseFormat ? true : false)
-        }
-
-        rp(rpOptions)
-            .then((body) => {
-                this._response = body;
-            })
-            .catch((err) => {
-                throw new Error(err);
-            })
-
-        this._response = rp(rpOptions);
+        this._apiResponseFormat = apiResponseFormat;
     }
 }
 
