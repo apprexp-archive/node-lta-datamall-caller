@@ -111,4 +111,4 @@ Also updates `LtaDatamallCall.response`.
 Returns: `Promise<object>` or `{}`
 
 ## FAQ
-[View the FAQ](https://www.google.com)
+[View the FAQ](https://github.com/apprexp/node-lta-datamall-caller/blob/master/docs/FAQ.md)
